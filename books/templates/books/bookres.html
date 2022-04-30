@@ -1,0 +1,62 @@
+{% extends 'books/base.html' %}
+
+{% block content %}
+<div class="container text-center">
+    <h1>Welcome to Real University Library</h1>
+    <h4><i>Reserve our Real books today!</i></h4>
+</br>
+</div>
+</br></br>
+<div class="container-fluid text-center">
+    <div class="row">
+        <div class="col-md-6">
+            <h4>Student Name:</h4>
+           <select id="student">
+                <option value="" disabled selected>Student Name</option>
+                {% for row in student %}
+                <option value="{{row.studentid}}">{{row.fname}} {{row.lname}}</option>
+                {% endfor %}
+           </select> 
+        </div>
+        <div class="col-md-6">
+            <h4>Book Title:</h4>
+            <select id="booksin">
+                <option value="" disabled selected>Book Name</option>
+                {% for row in booksin %}
+                <option value="{{row.booktitle}}">{{row.booktitle}}</option>
+                {% endfor %}
+            </select>
+        </div>
+    </div></br></br></br></br>
+
+    <button class="btn btn-primary" id="btnres">Reserve Now!</button>
+</br></br><h5 id="errormessage"></h5>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+    <script>
+        $('document').ready(function(){
+            $('#btnres').click(function(){
+                $.ajax({
+                    url: "{% url 'savereservation' %}",
+                    data: {
+                        studentid: $('#student').val(),
+                        booktitle: $('#booksin').val(),
+                    },
+                    success: function(data){
+                        if (data=='Success'){
+                            window.alert("Your Reservation was Successful!")
+                            window.location = "{% url 'bookres' %}"
+                        }
+                        else{
+                            $('#errormessage').html('This student has already reserved their allotted four books.')
+                        }
+                    }
+                })
+            })
+        })
+    </script>
+</div>
+
+
+{% endblock %}

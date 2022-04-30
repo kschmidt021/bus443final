@@ -1,0 +1,48 @@
+{% extends 'books/base.html' %}
+
+{% block content %}
+
+<div class="container text-center">
+    <h1>Welcome to Real University Library</h1>
+    <h4><i>Our books are Real.</i></h4>
+</br>
+</div>
+
+<div class="container">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Book ID</th>
+                <th>Title</th>
+                <th>Author</th>
+                <th>Currently Checked Out?</th>
+                <th>Number of Times Previously Checked Out</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for i in data %}
+            <tr>
+                <td>{{ i.bookid }}</td>
+                <td><i>{{ i.booktitle }}</i></td>
+                <td>{{ i.authorname }}</td>
+                <td>{{ i.currentlyout }}</td>
+                <td>{{ i.numcheckedout }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <div class="pagination center">
+        <span class="step-links">
+            {% if data.has_previous %}
+                <a href="?page={{ data.previous_page_number }}">previous</a>
+            {% endif %}
+            <span class="current">
+                Page {{ data.number }} of {{ data.paginator.num_pages }}
+            </span>
+            {% if data.has_next %}
+                <a href="?page={{ data.next_page_number }}">next</a>
+            {% endif %}
+        </span>
+    </div>
+</div>
+{% endblock %}

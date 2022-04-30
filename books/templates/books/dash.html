@@ -1,0 +1,52 @@
+{% extends 'books/base.html' %}
+{% block content %}
+
+<div class="container text-center">
+    <h1>Welcome to Real University Library</h1>
+    <h4><i>We are... Real.</i></h4>
+</br>
+</div>
+<div class="container">
+    <div class="row">
+        <div>
+            <h3>Total Number of Students: <b>{{ total }}</b></h3>
+            <h3>Average GPA: <b>{{ avggpa }}</b></h3>
+        </div>
+        <div>
+                <div class="text-center">
+                    <h3>Our Real Students.</h3>
+                    <canvas width="500px" height="200px" id="mycanvas"></canvas>
+                </div>
+            
+        </div>
+    </div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js" 
+integrity="sha512-QSkVNOCYLtj73J4hbmVoOV6KVZuMluZlioC+trLpewV8qMjsWqlIQvkn1KGX2StWvPMdWGBqim1xlC8krl1EKQ==" 
+crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</br>
+<script>
+    var mychart = document.getElementById('mycanvas')
+    var newchart = new Chart(mychart, {
+        type: 'bar', 
+        data: {
+            labels: ['Freshman', 'Sophomore', 'Junior', 'Senior'],
+            datasets: [{
+                label: 'Number of Enrolled Students',
+                data: [ {{freshman}}, {{sophomore}}, {{junior}}, {{senior}} ],
+                backgroundColor: ['rgb(52, 50, 168, 0.6)']
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true             
+                }
+            }
+        }
+
+    })
+</script>
+
+
+{% endblock %}
